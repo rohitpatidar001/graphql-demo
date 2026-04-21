@@ -1,0 +1,18 @@
+curl --location 'http://localhost:8080/graphql' \
+--header 'Content-Type: application/json' \
+--data-raw '{
+    "query": "mutation { createUser(name:\"Rohit\", email:\"rohit@test.com\") { id name email } }"
+}'
+
+
+curl --location 'http://localhost:8080/graphql' \
+--header 'Content-Type: application/json' \
+--data '{
+  "query": "{ users { id name email } }"
+}'
+
+curl --location 'http://localhost:8080/graphql' \
+--header 'Content-Type: application/json' \
+--data '{
+  "query": "{ userById(id:\"0aa85e97-dc8b-4b71-8b29-b769408fff4f\") { id name email } }"
+}'

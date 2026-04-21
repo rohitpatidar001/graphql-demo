@@ -1,0 +1,4 @@
+com\demo\graphql\controller\UserController.class
+com\demo\graphql\service\UserService.class
+com\demo\graphql\GraphqlDemoApplication.class
+com\demo\graphql\model\User.class

@@ -1,7 +1,9 @@
+Architecture -> GraphQL → Controller → Service → Repository → DB (H2)
+
 curl --location 'http://localhost:8080/graphql' \
 --header 'Content-Type: application/json' \
 --data-raw '{
-    "query": "mutation { createUser(name:\"Rohit\", email:\"rohit@test.com\") { id name email } }"
+    "query": "mutation { createUser(name:\"Shahid\", email:\"Shahid@test.com\") { id name email } }"
 }'
 
 

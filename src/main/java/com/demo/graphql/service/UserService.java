@@ -1,6 +1,9 @@
 package com.demo.graphql.service;
 
-import com.demo.graphql.model.User;
+import com.demo.graphql.dto.UserDTO;
+import com.demo.graphql.model.UserEntity;
+import com.demo.graphql.repository.UserRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
@@ -8,20 +11,28 @@ import java.util.*;
 @Service
 public class UserService {
 
-    private final Map<String, User> db = new HashMap<>();
+    @Autowired
+    private UserRepository repo;
 
-    public List<User> getAllUsers() {
-        return new ArrayList<>(db.values());
+    public UserDTO getUserById(String id) {
+        UserEntity user = repo.findById(id)
+                .orElseThrow(() -> new RuntimeException("User not found"));
+
+        return new UserDTO(user.getId(), user.getName(), user.getEmail());
     }
 
-    public User getUserById(String id) {
-        return db.get(id);
+    public List<UserDTO> getUsers() {
+        return repo.findAll().stream()
+                .map(u -> new UserDTO(u.getId(), u.getName(), u.getEmail()))
+                .toList();
     }
 
-    public User createUser(String name, String email) {
+    public UserDTO createUser(String name, String email) {
         String id = UUID.randomUUID().toString();
-        User user = new User(id, name, email);
-        db.put(id, user);
-        return user;
+
+        UserEntity entity = new UserEntity(id, name, email);
+        repo.save(entity);
+
+        return new UserDTO(id, name, email);
     }
 }
